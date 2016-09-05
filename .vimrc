@@ -3,6 +3,10 @@ map <C-Left> b
 map <C-Right> w
 
 "Ctrl/Shift + стрелка вниз/вверх
+imap <C-Up> 5k
+imap <C-Down> 5j
+imap <S-Up> 5k
+imap <S-Down> 5j
 map <C-Up> 5k
 map <C-Down> 5j
 map <S-Up> 5k
