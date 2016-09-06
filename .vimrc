@@ -3,10 +3,6 @@ map <C-Left> b
 map <C-Right> w
 
 "Ctrl/Shift + стрелка вниз/вверх
-imap <C-Up> 5k
-imap <C-Down> 5j
-imap <S-Up> 5k
-imap <S-Down> 5j
 map <C-Up> 5k
 map <C-Down> 5j
 map <S-Up> 5k
@@ -15,15 +11,14 @@ map <S-Down> 5j
 "перемещение на начало строки (есть у меня одна бага на плашете)
 map <Home> 0
 
-" чтобы автоматом вставляло как надо
-" unmap p
-map p P
-
 "вырезает одно слово под курсором (можно использовать как удаление)
 map x dw
 
 "скопировать слово
 map c yw
+
+"Подсветка текущей строки
+set cursorline
 
 "использовать 256 цветов.
 set term=xterm-256color
@@ -72,6 +67,8 @@ let g:tagbar_sort = 0
 
 "---- ПЛАГИНЫ, обязательно почитать про установку vim-plug
 call plug#begin('~/.vim/plugged')
+"калькулятор
+Plug 'sk1418/HowMuch'
 "плагин для открытыя папок (реагирует на CTRL + o)
 Plug 'scrooloose/nerdtree', {'on':'NERDTreeToggle'}
 "для цветовой схемы
@@ -173,9 +170,6 @@ inoremap <C-w>t <Esc>:tabnew<CR>
 nnoremap <C-w><PageUp> :tabnext<CR>
 "переместиться в предыдущую панель
 nnoremap <C-w><PageDown> :tabprev<CR>
-
-"Подсветка текущей строки
-set cursorline
 
 "выход двойное нажатие qq
 map qq :q<CR>
