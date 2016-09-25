@@ -5,6 +5,8 @@ map <C-Right> w
 "Ctrl/Shift + стрелка вниз/вверх
 map <C-Up> 5k
 map <C-Down> 5j
+imap <S-Up> <Esc>5k
+imap <S-Down> <Esc>5j
 map <S-Up> 5k
 map <S-Down> 5j
 
@@ -12,10 +14,14 @@ map <S-Down> 5j
 map <Home> 0
 
 "вырезает одно слово под курсором (можно использовать как удаление)
-map x dw
+map x diw
 
 "скопировать слово
-map c yw
+map c yiw
+
+" умные отступы (нах не работает, пишет что не найден)
+" set autoident
+" set smartident
 
 "Подсветка текущей строки
 set cursorline
@@ -60,11 +66,6 @@ nmap <F2>  :w!<CR>
 imap <F2>  <Esc>:w!<CR>
 vmap <F2>  <Esc>:w!<CR>
 
-" TagList настройки
-map <C-b> :TagbarToggle<CR>
-let g:tagbar_sort = 0
-" let g:tagbar_autofocus = 0 " автофокус на Tagbar при открытии
-
 "---- ПЛАГИНЫ, обязательно почитать про установку vim-plug
 call plug#begin('~/.vim/plugged')
 "калькулятор
@@ -80,7 +81,9 @@ Plug 'jiangmiao/auto-pairs'
 "показывает классы функции,в общем еще не заценил, вызывается по Ctrl-b
 "(необходимо установть ctags sudo apt-get install ctags) в общем нах не нужен
 "говноплагин, отстой, нах не работает, но лучше походу не придумали.((
-Plug 'majutsushi/tagbar'
+" Plug 'majutsushi/tagbar'
+" будем надеяться что этот плагин более удобный и более корректно работает
+Plug 'vim-scripts/taglist.vim'
 "для javascript, показывает функции и переменные, пока нареканий нет, работает
 "норм. Хуета подноготная, давно загнулся и нах не работает!
 "Plug 'int3/vim-taglist-plus'
@@ -96,8 +99,19 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
 "надеюсь, это адекватный плагин для поиска
 Plug 'mileszs/ack.vim'
+"парное программирование, одновременное редактирование кода несколькими
+"пользователями
+Plug 'FredKSchott/CoVim'
 call plug#end()
 
+" TagList настройки majutsushi/tagbar
+" map <C-b> :TagbarToggle<CR>
+" let g:tagbar_sort = 0
+" let g:tagbar_autofocus = 0 " автофокус на Tagbar при открытии
+
+" плагин для поиска тегов vim-scripts/taglist.vim
+map <C-b> :TlistToggle<CR>
+"
 "nerdcommenter
 filetype plugin on
 "пробел после символа коментирования 
@@ -173,3 +187,14 @@ nnoremap <C-w><PageDown> :tabprev<CR>
 
 "выход двойное нажатие qq
 map qq :q<CR>
+
+" тут я опишу некоторые полезные сочетания клавиш
+" gd - переход к локальной инициализации переменной
+" gD - переход к инициализации глобальной переменной
+" gi - перейти к последнему месту редактирования
+" '. - перейти к последнему месту редактирования
+" :%g/^ /-1j - все строки что начинаются с пробела, объединить с предыдущими
+" J - объединить строко со следующей
+" Crtl + R "  - вставит текст в режиме редактирования
+" :help object-motions - примеры переходов
+" vip - удалить тескт между (  )
