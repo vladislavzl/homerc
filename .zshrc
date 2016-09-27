@@ -1,21 +1,42 @@
-#дабы все поддерживало 256 цветов и не портилась цветовая гамма в настройках
+# дабы все поддерживало 256 цветов и не портилась цветовая гамма в настройках
 export TERM="xterm-256color"
 
-#быстрый выход
+# быстрый выход
 alias q='exit'
 
-#автодополнение
+# авторазворот
 autoload -U compinit promptinit 
 compinit
-#promptinit хз, чето не работает
+
 # меню для перехода по возможным вариантам
+setopt menucomplete
+# zstyle ':completion:*' menu select=1 _complete _ignored _approximate
 zstyle ':completion:*' menu select=long-list select=0
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-#не нужен ввод cd
+# не нужен ввод cd
 setopt autocd
 
-#исправление нажатий стандартных клавиш
+# оформление консоли
+export PROMPT='%n@%m> '
+export RPROMPT='[%~]'
+
+# Последовательность  Описание
+# %n  Имя пользователя
+# %m  Имя компьютера (до первой точки)
+# %M  Полное имя компьютера
+# %~  Путь к текущему каталогу относительно домашнего
+# %d  Полный путь к текущей директории
+# %T  Время в формате HH:MM
+# %*  Время в формате HH:MM:SS
+# %D  Дата в формате YY-MM-DD
+# %B, %b  Начало и конец выделения жирным
+# %U, %u  Начало и конец подчеркивания
+
+# чтобы ls работал как find
+setopt extendedglob
+
+# исправление нажатий стандартных клавиш
 bindkey "^[OB" down-line-or-search
 bindkey "^[OC" forward-char
 bindkey "^[OD" backward-char
@@ -42,3 +63,11 @@ setopt APPEND_HISTORY
 # setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
+
+## Число команд, сохраняемых в HISTFILE
+SAVEHIST=5000
+
+## Чucлo koмaнg, coxpaняeмыx в сеансе
+HISTSIZE=5000
+
+# Последовательность !!:2 или !!2 заменяется на второй аргумент последней команды. 
