@@ -4,6 +4,7 @@ export TERM="xterm-256color"
 # быстрый выход
 alias q='exit'
 alias a='sudo apt-get'
+alias la='ls -la'
 
 # авторазворот
 autoload -U compinit promptinit 
