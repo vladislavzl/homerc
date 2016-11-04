@@ -1,14 +1,114 @@
-"перемещение при помощи ctrl и стрелки
-map <C-Left> b
-map <C-Right> w
+" маппинг русской раскладки
+  map й q
+  map ц w
+  map у e
+  map к r
+  map е t
+  map н y
+  map г u
+  map ш i
+  map щ o
+  map з p
+  map х [
+  map ъ ]
+  map ф a
+  map ы s
+  map в d
+  map а f
+  map п g
+  map р h
+  map о j
+  map л k
+  map д l
+  map ж ;
+  map э '
+  map я z
+  map ч x
+  map с c
+  map м v
+  map и b
+  map т n
+  map ь m
+  map б ,
+  map ю .
+  map Й Q
+  map Ц W
+  map У E
+  map К R
+  map Е T
+  map Н Y
+  map Г U
+  map Ш I
+  map Щ O
+  map З P
+  map Х {
+  map Ъ }
+  map Ф A
+  map Ы S
+  map В D
+  map А F
+  map П G
+  map Р H
+  map О J
+  map Л K
+  map Д L
+  map Ж :
+  map Э "
+  map Я Z
+  map Ч X
+  map С C
+  map М V
+  map И B
+  map Т N
+  map Ь M
+  map Б <
+  map Ю >
 
-"Ctrl/Shift + стрелка вниз/вверх
+set showcmd
+set laststatus=2
+
+" перемещение при помощи ctrl и стрелки
+map ^[[[D b
+map ^[[[C e
+map <S-Left> b
+map <S-Right> e
+
+" Ctrl/Shift + стрелка вниз/вверх
 map <C-Up> 5k
 map <C-Down> 5j
 imap <S-Up> <Esc>5k
 imap <S-Down> <Esc>5j
 map <S-Up> 5k
 map <S-Down> 5j
+
+"НАСТРОЙКИ СВОРАЧИВАНИЯ БЛОКОВ ТЕКСТА (фолдинг)
+"" set foldenable " включить фолдинг
+set foldmethod=syntax " определять блоки на основе синтаксиса файла
+set foldmethod=indent " определять блоки на основе отступов
+set foldcolumn=3 " показать полосу для управления сворачиванием
+set foldlevel=999 " Первый уровень вложенности открыт, остальные закрыты
+" set foldopen=all " автоматическое открытие сверток при заходе в них
+" set tags=tags\ $VIMRUNTIME/systags " искать теги в текущй директории и в
+" указанной (теги генерируются ctags)
+
+" Показывать положение курсора всё время.
+set ruler
+" " Показывать незавершённые команды в статусбаре
+" set showcmd
+
+" Навигация с учетом русских символов !не работает!
+set iskeyword=@,48-57,_,192-255
+" Удаление символов бэкспэйсом в Windows !не работает!
+set backspace=indent,eol,start
+
+" как долго будет ожидать следующую команду.. пока не въехал, хуета
+" какая-от..
+set mat=2
+
+" Visual mode pressing * or # searches for the current selection
+" " Super useful! From an idea by Michael Naumann еще одна не рабочая хуета
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>"
 
 "перемещение на начало строки (есть у меня одна бага на плашете)
 map <Home> 0
@@ -49,15 +149,6 @@ set incsearch
 "подсветка синтаксиса
 syntax on
 
-"НАСТРОЙКИ СВОРАЧИВАНИЯ БЛОКОВ ТЕКСТА (фолдинг), работает но смотрится уебищно
-"и перемещаться не удобно
-" set foldenable " включить фолдинг
-" set foldmethod=syntax " определять блоки на основе синтаксиса файла
-" set foldmethod=indent " определять блоки на основе отступов
-" set foldcolumn=3 " показать полосу для управления сворачиванием
-" set foldlevel=1 " Первый уровень вложенности открыт, остальные закрыты
-" set foldopen=all " автоматическое открытие сверток при заходе в них
-" set tags=tags\ $VIMRUNTIME/systags " искать теги в текущй директории и в указанной (теги генерируются ctags)
 
 
 " Сохранить файл по <F2>, работает в termux.
@@ -81,9 +172,12 @@ Plug 'jiangmiao/auto-pairs'
 "показывает классы функции,в общем еще не заценил, вызывается по Ctrl-b
 "(необходимо установть ctags sudo apt-get install ctags) в общем нах не нужен
 "говноплагин, отстой, нах не работает, но лучше походу не придумали.((
-" Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
+" плагин для питона
+Plug 'klen/python-mode'
+Plug 'mitsuhiko/vim-python-combined'
 " будем надеяться что этот плагин более удобный и более корректно работает
-Plug 'vim-scripts/taglist.vim'
+" Plug 'vim-scripts/taglist.vim'
 "для javascript, показывает функции и переменные, пока нареканий нет, работает
 "норм. Хуета подноготная, давно загнулся и нах не работает!
 "Plug 'int3/vim-taglist-plus'
@@ -110,13 +204,16 @@ Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'"
 call plug#end()
 
+" дэбаг питона - !хуета не работает!
+" nnoremap <F6> :exe "ConqueTermSplit ipython " . expand("%")<CR>
+
 " TagList настройки majutsushi/tagbar
-" map <C-b> :TagbarToggle<CR>
-" let g:tagbar_sort = 0
-" let g:tagbar_autofocus = 0 " автофокус на Tagbar при открытии
+map <C-b> :TagbarToggle<CR>
+let g:tagbar_sort = 0
+let g:tagbar_autofocus = 0 " автофокус на Tagbar при открытии
 
 " плагин для поиска тегов vim-scripts/taglist.vim
-map <C-b> :TlistToggle<CR>
+" map <C-b> :TlistToggle<CR>
 "
 "nerdcommenter
 filetype plugin on
@@ -204,3 +301,6 @@ map qq :q<CR>
 " Crtl + R "  - вставит текст в режиме редактирования
 " :help object-motions - примеры переходов
 " vip - удалить тескт между (  )
+" :noh - снять выделение поиска
+" UltiSnips – поддержка шаблонов кода.
+" :BufExplorer - просмотр списка буферов

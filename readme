@@ -1,6 +1,16 @@
+Клонируем реп
+git clone https://github.com/arahnale/homerc.git
+
+делаем симлинки
+sudo ln ~/homerc/.tmux.conf ~/.tmux.conf
+sudo ln ~/homerc/.zshrc ~/.zshrc
+sudo ln ~/homerc/.vimrc ~/.vimrc
+
 пусть это будет справка по использованию данного репа
 ставим установщик плагинов
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl -fLo ~/.vim/autoload/plug.vim \ 
+--create-dirs \ 
+https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 git init - тут тупо созваем реп
 git add -A  - добавляем все файлы
