@@ -174,8 +174,8 @@ Plug 'jiangmiao/auto-pairs'
 "говноплагин, отстой, нах не работает, но лучше походу не придумали.((
 Plug 'majutsushi/tagbar'
 " плагин для питона
-Plug 'klen/python-mode'
-Plug 'mitsuhiko/vim-python-combined'
+" Plug 'klen/python-mode'
+" Plug 'mitsuhiko/vim-python-combined'
 " будем надеяться что этот плагин более удобный и более корректно работает
 " Plug 'vim-scripts/taglist.vim'
 "для javascript, показывает функции и переменные, пока нареканий нет, работает

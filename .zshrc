@@ -73,3 +73,6 @@ SAVEHIST=5000
 HISTSIZE=5000
 
 # Последовательность !!:2 или !!2 заменяется на второй аргумент последней команды. 
+
+export NVM_DIR="/home/ad/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
