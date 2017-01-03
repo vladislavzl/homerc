@@ -11,8 +11,9 @@
   alias la='ls -la'
 
 # авторазворот
-  autoload -U compinit promptinit 
-  compinit
+  # autoload -U compinit promptinit
+  autoload -U compinit && compinit
+  # compinit
 
 # меню для перехода по возможным вариантам
   setopt menucomplete
@@ -40,7 +41,13 @@
   # %U, %u  Начало и конец подчеркивания
 
 # чтобы ls работал как find
-  setopt extendedglob
+  setopt extended_glob
+
+# Добавляет в историю время выполнения команды.
+  setopt extended_history
+
+# История становится общей между всеми сессиями / терминалами.
+  setopt share_history
 
 # исправление нажатий стандартных клавиш, нах не нужно и так все работает
   # bindkey "^[OB" down-line-or-search

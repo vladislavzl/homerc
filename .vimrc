@@ -67,6 +67,17 @@
 " показать статусную строку в две строки
   set laststatus=2
 
+map [ {
+map ] }
+
+" по нажатию non убираем номера строк и полоску сжатия текста
+map non :call Non()<CR>
+
+function Non()
+  set nonumber
+  set foldcolumn=0 
+endfunction
+
 " перемещение при помощи ctrl и стрелки
   map ^[[[D b
   map ^[[[C e
