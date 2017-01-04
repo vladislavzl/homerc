@@ -1,3 +1,6 @@
+cp ~/.vimrc ./
+cp ~/.tmux ./
+cp ~/.zshrc ./
 git add ./.vimrc
 git add ./.tmux.conf
 git add ./.zshrc
