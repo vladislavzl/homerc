@@ -8,6 +8,7 @@
   alias q='exit'
   alias a='sudo apt-get'
   alias ai='sudo apt-get install'
+  alias helpdesk='/home/aleksey-afoshin/ownCloud/script/www/helpdesk_rest.py'
   alias la='ls -la'
 
 # авторазворот

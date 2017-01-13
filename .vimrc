@@ -170,6 +170,8 @@ endfunction
   "(необходимо установть ctags sudo apt-get install ctags) в общем нах не нужен
   "говноплагин, отстой, нах не работает, но лучше походу не придумали.((
   Plug 'majutsushi/tagbar'
+  " таблицы :TableModeToggle mapped to <Leader>tm by default
+  Plug 'dhruvasagar/vim-table-mode'
   " плагин для html верстки
   Plug 'mattn/emmet-vim'
   " плагин для питона (полное говно)
