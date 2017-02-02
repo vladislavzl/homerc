@@ -4,12 +4,16 @@
 # чтобы не глючило Ctrl + s
   stty stop undef
 
-# быстрый выход
+# алиасы
   alias q='exit'
   alias a='sudo apt-get'
   alias ai='sudo apt-get install'
   alias helpdesk='/home/aleksey-afoshin/ownCloud/script/www/helpdesk_rest.py'
   alias la='ls -la'
+  alias g='grep'
+  alias cdad='cd /media/aleksey-afoshin/AD_SYS/adminsdata'
+  alias v='vim'
+  alias c='cat'
 
 # авторазворот
   # autoload -U compinit promptinit

@@ -67,15 +67,26 @@
 " показать статусную строку в две строки
   set laststatus=2
 
-map [ {
-map ] }
+" хранить больше истории команд"
+  set history=999 
+
+" перемежение между абзацами при помощи [  ]
+  map [ {
+  map ] }
 
 " по нажатию non убираем номера строк и полоску сжатия текста
-map non :call Non()<CR>
+  map non :call Non()<CR>
 
 function Non()
   set nonumber
   set foldcolumn=0 
+endfunction
+
+function AdFoldingSintax()
+  set foldenable
+  set foldmethod=syntax
+  syn region CodeBlock start=/{/ end=/}/ transparent fold
+  " syn region Comment start=/\/\*/ end=/\*\// fold
 endfunction
 
 " перемещение при помощи ctrl и стрелки
@@ -100,6 +111,13 @@ endfunction
   set foldlevel=999 " Первый уровень вложенности открыт, остальные закрыты
   " set foldopen=all " автоматическое открытие сверток при заходе в них
   " set tags=tags\ $VIMRUNTIME/systags " искать теги в текущй директории и в указанной (теги генерируются ctags)
+
+" меню
+  set wildmenu
+  set wcm=<C-Z>
+  amenu 10.310 &MyMenu.&folding_tab     :set foldmethod=indent<CR>
+  amenu 10.320 &MyMenu.&folding_sintax  :call AdFoldingSintax()<CR>
+  map <F3> :emenu MyMenu.<C-Z>
 
 " переходить на редактирование в конец строки  
   map a A
