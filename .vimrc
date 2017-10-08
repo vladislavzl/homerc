@@ -74,10 +74,24 @@
   map [ {
   map ] }
 
-" по нажатию non убираем номера строк и полоску сжатия текста
-  map non :call Non()<CR>
+" по нажатию non убираем номера строк и полоску сжатия текста (тормозит при
+" поиске)
+  " map non :call Non()<CR> 
 
+" написать время
+function Time()
+  strftime('%T')<CR>
+endfunction
+
+" Сохранение позиции курсора
+augroup resCur
+  autocmd!
+  autocmd BufReadPost * call setpos(".", getpos("'\""))
+augroup END
+
+" вызов :echo Non()
 function Non()
+  set norelativenumber
   set nonumber
   set foldcolumn=0 
 endfunction
@@ -103,7 +117,7 @@ endfunction
   map <S-Up> 5k
   map <S-Down> 5j
 
-"НАСТРОЙКИ СВОРАЧИВАНИЯ БЛОКОВ ТЕКСТА (фолдинг)
+" НАСТРОЙКИ СВОРАЧИВАНИЯ БЛОКОВ ТЕКСТА (фолдинг)
   "" set foldenable " включить фолдинг
   set foldmethod=syntax " определять блоки на основе синтаксиса файла
   set foldmethod=indent " определять блоки на основе отступов
@@ -112,12 +126,17 @@ endfunction
   " set foldopen=all " автоматическое открытие сверток при заходе в них
   " set tags=tags\ $VIMRUNTIME/systags " искать теги в текущй директории и в указанной (теги генерируются ctags)
 
-" меню
+" меню При авто-дополнении в командной строке над ней выводятся возможные варианты
   set wildmenu
   set wcm=<C-Z>
   amenu 10.310 &MyMenu.&folding_tab     :set foldmethod=indent<CR>
   amenu 10.320 &MyMenu.&folding_sintax  :call AdFoldingSintax()<CR>
   map <F3> :emenu MyMenu.<C-Z>
+
+" сохранения маркеров файлов
+  " set viminfo='1000,f1
+  " set viminfo+=n~/.vim/viminfo
+  set viminfo+='1000,n~/.vim/viminfo
 
 " переходить на редактирование в конец строки  
   map a A
@@ -132,10 +151,10 @@ endfunction
   set mat=2
 
 " вырезает одно слово под курсором (можно использовать как удаление)
-  map x diw
-
+"   map x diw
+"
 " скопировать слово
-  map c yiw
+"   map c yiw
 
 " Подсветка текущей строки
   set cursorline
@@ -144,13 +163,17 @@ endfunction
   set term=xterm-256color
 
 " номерав строк
-  set number
+  " абсолютная нумерация
+  " set number
+  " относительная нумерация
+  set relativenumber
 
 " табуляция
   " в режиме вставки заменяет символ табуляции на соответствующее количество пробелов.
-    set expandtab 
+    set expandtab
   " количество пробелов, которые заменяют табуляцию
     set tabstop=2
+    set ts=2
   "табуляция через >> <<
     set shiftwidth=2
   "табуляция через tab
@@ -174,11 +197,18 @@ endfunction
 
 "---- ПЛАГИНЫ, обязательно почитать про установку vim-plug
   call plug#begin('~/.vim/plugged')
+  " Мультикурсор 
+  " Plug 'terryma/vim-multiple-cursors'
+  " Плагин для копипаста. галимая хуетень
+  " Plug 'junegunn/vim-peekaboo'
+  " Чтобы можно было ставить символы вокруг выделенного текста. cs" - ставит двойные кавычки вокруг текста
+  Plug 'tpope/vim-surround'
   "калькулятор
   Plug 'sk1418/HowMuch'
   "плагин для открытыя папок (реагирует на CTRL + o)
   Plug 'scrooloose/nerdtree', {'on':'NERDTreeToggle'}
-  "для цветовой схемы
+  Plug 'Xuyuanp/nerdtree-git-plugin'
+ "для цветовой схемы
   Plug 'morhetz/gruvbox'
   "автодополнение для JS и прочего (внимательно гуглить про установку)
   Plug 'Valloric/YouCompleteMe'
@@ -213,13 +243,37 @@ endfunction
   "надеюсь, это адекватный плагин для поиска
   Plug 'mileszs/ack.vim'
   "парное программирование, одновременное редактирование кода несколькими пользователями (еще бы работал, вообще было бы здорово)
-  Plug 'FredKSchott/CoVim'
-  Plug 'google/vim-maktaba'
-  Plug 'google/vim-codefmt'
+  " Plug 'FredKSchott/CoVim'
+  " Plug 'google/vim-maktaba'
+  " Plug 'google/vim-codefmt'
   " Also add Glaive, which is used to configure codefmt's maktaba flags. See
   " " `:help :Glaive` for usage.
-  Plug 'google/vim-glaive'"
+  " Plug 'google/vim-glaive'"
+  "--------------=== Поддержка сниппетов ===---------------
+  " Plug 'garbas/vim-snipmate', {'for': 'python'}            " Snippets manager
+  " Plug 'MarcWeber/vim-addon-mw-utils', {'for': 'python'}   " dependencies #1
+  " Plug 'tomtom/tlib_vim', {'for': 'python'}                " dependencies #2
+  " Plug 'honza/vim-snippets', {'for': 'python'}             " snippets repo
+  " --- Python ---
+  " Plug 'klen/python-mode'               " Python mode (docs, refactor, lints, highlighting, run and ipdb and more)
+  Plug 'davidhalter/jedi-vim'           " Jedi-vim autocomplete Plug
+  Plug 'mitsuhiko/vim-jinja'            " Jinja support for vim
+  Plug 'mitsuhiko/vim-python-combined'  " Combined Python 2/3 for Vim
+  " Плагин для puppet
+  Plug 'rodjek/vim-puppet' 
+  " Плагин для git
+  Plug 'amjith/git-vim' 
   call plug#end()
+
+" Мультикурсор
+  let g:multi_cursor_start_key='<C-m>'
+  let g:multi_cursor_start_word_key='g<C-m>'
+  let g:multi_cursor_use_default_mapping=0
+  let g:multi_cursor_start_key='<C-m>'  
+  let g:multi_cursor_next_key='<C-m>'
+  let g:multi_cursor_prev_key='<C-p>'
+  let g:multi_cursor_skip_key='<C-x>'
+  let g:multi_cursor_quit_key='<Esc>'
 
 " TagList настройки majutsushi/tagbar
   map <C-b> :TagbarToggle<CR>
@@ -228,9 +282,14 @@ endfunction
 
 " плагин для поиска тегов vim-scripts/taglist.vim
 " map <C-b> :TlistToggle<CR>
-"
+
+" Автодополнение
+let g:neocomplcache_enable_at_startup = 1
+
 " nerdcommenter
+  filetype on
   filetype plugin on
+  filetype plugin indent on
   "пробел после символа коментирования 
   let g:NERDSpaceDelims = 1
   " Use compact syntax for prettified multi-line comments
@@ -251,28 +310,98 @@ endfunction
   map <C-d> <leader>c<space>
   imap <C-d> <leader>c<space>
 
+"=====================================================
+" Python-mode settings
+"=====================================================
+" отключаем автокомплит по коду (у нас вместо него используется jedi-vim)
+let g:pymode_rope = 0
+let g:pymode_rope_completion = 0
+let g:pymode_rope_complete_on_dot = 0
+
+" документация
+let g:pymode_doc = 0
+let g:pymode_doc_key = 'K'
+" проверка кода
+let g:pymode_lint = 1
+let g:pymode_lint_checker = "pyflakes,pep8"
+let g:pymode_lint_ignore="E501,W601,C0110"
+" провека кода после сохранения
+let g:pymode_lint_write = 1
+
+" поддержка virtualenv
+let g:pymode_virtualenv = 1
+
+" установка breakpoints
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_key = '<leader>b'
+
+" подстветка синтаксиса
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+" отключить autofold по коду
+let g:pymode_folding = 0
+
+" возможность запускать код
+let g:pymode_run = 0
+
+
 " тут типа плагин для JS, пока не въехал, работает ли..
   let g:deoplete#enable_at_startup = 1
   if !exists('g:deoplete#omni#input_patterns')
     let g:deoplete#omni#input_patterns = {}
   endif
-  " let g:deoplete#disable_auto_complete = 1
-  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+  let g:deoplete#disable_auto_complete = 1
+  " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
   " omnifuncs
-  augroup omnifuncs
-  autocmd!
+  " augroup omnifuncs
+  " autocmd!
+  " set ruler
+  " set completeopt-=preview
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+
+autocmd FileType python setlocal expandtab shiftwidth=2 tabstop=8 formatoptions+=croq softtabstop=2 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+autocmd FileType pyrex setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+if has('python3')
+    let g:loaded_youcompleteme = 1 " disables loading it! doesnt support python3
+    let g:jedi#force_py_version = 3
+    let g:pymode_python = 'python3'
+:endif
+
+  " autocmd FileType python3 setlocal omnifunc=pythoncomplete#Complete
+  " autocmd FileType python3 set breakindentopt=shift:2
+  " autocmd FileType python3 setlocal omnifunc=jedi#complete
+  " autocmd FileType python  setlocal omnifunc=jedi#complete
+  " autocmd FileType python3 Bundle omnifunc=pythoncomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  augroup end
-  "             " tern
-  if exists('g:plugs["tern_for_vim"]')
-    let g:tern_show_argument_hints = 'on_hold'
-    let g:tern_show_signature_in_pum = 1
-    autocmd FileType javascript setlocal omnifunc=tern#Complete 
-  endif
+  " augroup end
+  " "             " tern
+  " if exists('g:plugs["tern_for_vim"]')
+  "   let g:tern_show_argument_hints = 'on_hold'
+  "   let g:tern_show_signature_in_pum = 1
+  "   autocmd FileType javascript setlocal omnifunc=tern#Complete
+  " endif
+
+" Python
+  " let g:pymode_rope = 0
+  " let g:pymode_rope_completion = 0
+  " let g:pymode_rope_complete_on_dot = 0
+  " let g:pymode_doc = 1
+  " let g:pymode_doc_key = 'K'
+  " let g:pymode_virtualenv = 1
+  " let g:pymode_run = 0
+  " let g:jedi#popup_select_first = 1
+  " let g:jedi#completions_enabled = 1
+  " let g:jedi#popup_on_dot = 1
+  " let g:jedi#auto_vim_configuration = 1
+  " let g:jedi#show_call_signatures = 1
+
+  set completeopt=menuone,longest,preview,noinsert
+
 
 " цветовая схема
   colorscheme gruvbox
@@ -300,10 +429,15 @@ endfunction
 " выход двойное нажатие qq
   map qq :q<CR>
 
-" попробую написать свой собственный плагин
-  " плагин для создания файлов по шаблону
+" плагин для puppet
+  let g:puppet_align_hashes = 0
+
+" плагин для создания файлов по шаблону
   " autocmd BufNewFile *.py source ~/.vim/ftplugin/python.vim
   " autocmd BufNewFile index.html source ~/.vim/ftplugin/html.vim
+  autocmd BufNewFile *.sh :0 put='#!/bin/sh'
+  autocmd BufNewFile *.py :0 put='#!/usr/bin/env python'
+  autocmd BufNewFile *.py :1 put='# -*- coding: utf8 -*-'
 
 " тут я опишу некоторые полезные сочетания клавиш
 " gd - переход к локальной инициализации переменной
