@@ -188,6 +188,8 @@ source $ZSH/oh-my-zsh.sh
   alias v='vim'
   alias c='cat'
   alias p='ping'
+  alias ranger='ranger --choosedir=$HOME/rangerdir; LASTDIR=`cat $HOME/rangerdir`; cd "$LASTDIR"'
+  alias ra='ranger --choosedir=$HOME/rangerdir; LASTDIR=`cat $HOME/rangerdir`; cd "$LASTDIR"'
 
 # редактор по умолчанию
   export EDITOR=vim
