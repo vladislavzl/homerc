@@ -366,11 +366,6 @@ let g:pymode_run = 0
 
 autocmd FileType python setlocal expandtab shiftwidth=2 tabstop=8 formatoptions+=croq softtabstop=2 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 autocmd FileType pyrex setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-if has('python3')
-    let g:loaded_youcompleteme = 1 " disables loading it! doesnt support python3
-    let g:jedi#force_py_version = 3
-    let g:pymode_python = 'python3'
-:endif
 
   " autocmd FileType python3 setlocal omnifunc=pythoncomplete#Complete
   " autocmd FileType python3 set breakindentopt=shift:2
