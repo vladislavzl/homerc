@@ -18,3 +18,5 @@ sudo apt-get install -y python-dev python3-dev
 
 cd ~/.vim/plugged/YouCompleteMe/; ./install.py --clang-completer --js-completer
 
+# add user to sudo 
+sudo sh -c "echo \"$USER ALL=(ALL) NOPASSWD:ALL\" > /etc/sudoers.d/90-cloudimg-ubuntu"
