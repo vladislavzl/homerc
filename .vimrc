@@ -430,7 +430,7 @@ autocmd FileType pyrex setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2 s
 " плагин для создания файлов по шаблону
   " autocmd BufNewFile *.py source ~/.vim/ftplugin/python.vim
   " autocmd BufNewFile index.html source ~/.vim/ftplugin/html.vim
-  autocmd BufNewFile *.sh :0 put='#!/bin/sh'
+  autocmd BufNewFile *.sh :0 put='#!/bin/bash'
   autocmd BufNewFile *.py :0 put='#!/usr/bin/env python'
   autocmd BufNewFile *.py :1 put='# -*- coding: utf8 -*-'
 
