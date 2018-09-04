@@ -103,11 +103,11 @@ function AdFoldingSintax()
   " syn region Comment start=/\/\*/ end=/\*\// fold
 endfunction
 
-" перемещение при помощи ctrl и стрелки
+" перемещение при помощи ctrl/shift и стрелки
   map ^[[[D b
   map ^[[[C e
-  map <S-Left> b
-  map <S-Right> e
+  map <S-Left> <Esc>b
+  map <S-Right> <Esc>e
 
 " Ctrl/Shift + стрелка вниз/вверх
   map <C-Up> 5k
@@ -167,6 +167,7 @@ endfunction
   " set number
   " относительная нумерация
   set relativenumber
+  set number
 
 " табуляция
   " в режиме вставки заменяет символ табуляции на соответствующее количество пробелов.
@@ -194,6 +195,40 @@ endfunction
   nmap <F2>  :w!<CR>
   imap <F2>  <Esc>:w!<CR>
   vmap <F2>  <Esc>:w!<CR>
+
+" ---управление окнами
+  "разделить окно
+  map <C-w>v :sp<CR>
+  map <C-w>h :vsp<CR>
+  imap <C-w>v :sp<CR>
+  imap <C-w>h :vsp<CR>
+
+" ---управление панелями
+  "создать новую панель
+  nnoremap <C-w>t :tabnew<CR>
+  inoremap <C-w>t <Esc>:tabnew<CR>
+  "переместиться в следущую панель
+  nnoremap <C-w><PageUp> :tabprev<CR>
+  "переместиться в предыдущую панель
+  nnoremap <C-w><PageDown> :tabnext<CR>
+
+" выход двойное нажатие qq
+  map qq :q<CR>
+
+" плагин для puppet
+  let g:puppet_align_hashes = 0
+
+" плагин для создания файлов по шаблону
+  " autocmd BufNewFile *.py source ~/.vim/ftplugin/python.vim
+  " autocmd BufNewFile index.html source ~/.vim/ftplugin/html.vim
+  autocmd BufNewFile *.sh :0 put='#!/bin/bash'
+  autocmd BufNewFile *.py :0 put='#!/usr/bin/env python'
+  autocmd BufNewFile *.py :1 put='# -*- coding: utf8 -*-'
+  autocmd BufNewFile .gitignore :0 put='.gitignore'
+  autocmd BufNewFile .gitignore :1 put='*.swp'
+  autocmd BufNewFile .gitignore :2 put='*.orig'
+  autocmd BufNewFile .pl :0 put='#!/usr/bin/perl -w'
+  autocmd BufNewFile .pl :1 put='use strict;'
 
 "---- ПЛАГИНЫ, обязательно почитать про установку vim-plug
   call plug#begin('~/.vim/plugged')
@@ -263,7 +298,12 @@ endfunction
   Plug 'rodjek/vim-puppet' 
   " Плагин для git
   Plug 'amjith/git-vim' 
+  " Плагин для Wiki
+  Plug 'vimwiki/vimwiki' , { 'branch': 'dev' }
   call plug#end()
+
+" Настройки для wiki
+  let g:vimwiki_folding='syntax'
 
 " Мультикурсор
   let g:multi_cursor_start_key='<C-m>'
@@ -405,34 +445,6 @@ autocmd FileType pyrex setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2 s
 " показать дерево файлов
   map <C-o> :NERDTreeToggle<CR>
 
-" ---управление окнами
-  "разделить окно
-  map <C-w>v :sp<CR>
-  map <C-w>h :vsp<CR>
-  imap <C-w>v :sp<CR>
-  imap <C-w>h :vsp<CR>
-
-" ---управление панелями
-  "создать новую панель
-  nnoremap <C-w>t :tabnew<CR>
-  inoremap <C-w>t <Esc>:tabnew<CR>
-  "переместиться в следущую панель
-  nnoremap <C-w><PageUp> :tabnext<CR>
-  "переместиться в предыдущую панель
-  nnoremap <C-w><PageDown> :tabprev<CR>
-
-" выход двойное нажатие qq
-  map qq :q<CR>
-
-" плагин для puppet
-  let g:puppet_align_hashes = 0
-
-" плагин для создания файлов по шаблону
-  " autocmd BufNewFile *.py source ~/.vim/ftplugin/python.vim
-  " autocmd BufNewFile index.html source ~/.vim/ftplugin/html.vim
-  autocmd BufNewFile *.sh :0 put='#!/bin/bash'
-  autocmd BufNewFile *.py :0 put='#!/usr/bin/env python'
-  autocmd BufNewFile *.py :1 put='# -*- coding: utf8 -*-'
 
 " тут я опишу некоторые полезные сочетания клавиш
 " gd - переход к локальной инициализации переменной
