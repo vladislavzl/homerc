@@ -167,8 +167,8 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 call plug#begin('~/.config/nvim/plugged')
    Plug 'scrooloose/nerdtree', {'on':'NERDTreeToggle'}
-  "автодополнение для JS и прочего (внимательно гуглить про установку)
-   " Plug 'Valloric/YouCompleteMe'
+  "автодополнение 
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   "доставляет скобки.
   Plug 'jiangmiao/auto-pairs'
   "показывает классы функции,в общем еще не заценил, вызывается по Ctrl-b
@@ -181,18 +181,11 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'scrooloose/nerdcommenter'
   "внешний вид, пока не разобрался
   Plug 'vim-airline/vim-airline'
-	" плагин для автодополения python 
-  " Plug 'davidhalter/jedi-vim'           " Jedi-vim autocomplete Plug
   " цветоапя схема
   Plug 'mhartington/oceanic-next'
-  " автодополнеие для css
-  " Plug 'othree/csscomplete.vim'
-  " автодополнение всего
-  Plug 'roxma/nvim-completion-manager'
+  " perl omni
+  Plug 'c9s/perlomni.vim'
 call plug#end() 
-
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS 
-  " autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 
 " показать дерево файлов
    map <C-o> :NERDTreeToggle<CR>
@@ -230,6 +223,9 @@ call plug#end()
   "коментирование по сочетанию клавиш Ctrl-d
   map <C-d> <leader>c<space>
   imap <C-d> <leader>c<space>
+
+  " автодополнеиние
+  let g:deoplete#enable_at_startup = 1
 
 " тут я опишу некоторые полезные сочетания клавиш
 " gd - переход к локальной инициализации переменной
