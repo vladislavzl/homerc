@@ -10,6 +10,8 @@ cp newtmux.conf ~/.tmux.conf
 cp rc.conf ~/.config/ranger/rc.conf
 
 sudo apt-get install neovim
+sudo apt install python3-pip
+pip3 install neovim
 mkdir ~/.config/nvim
 cp ./init.vim ~/.config/nvim/
 
