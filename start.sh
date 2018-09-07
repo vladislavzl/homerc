@@ -22,3 +22,15 @@ cd ~/.vim/plugged/YouCompleteMe/; ./install.py --clang-completer --js-completer
 
 # add user to sudo 
 sudo sh -c "echo \"$USER ALL=(ALL) NOPASSWD:ALL\" > /etc/sudoers.d/90-cloudimg-ubuntu"
+
+# for firefox tablet
+# env MOZ_USE_XINPUT2=1 firefox
+#
+# You can make this permanent by modifying the launcher using the following:
+#
+# sudo sed -i "s|Exec=|Exec=env MOZ_USE_XINPUT2=1 |g" /usr/share/applications/firefox.desktop
+#
+# To undo this change, use:
+#
+# sudo sed -i "s|Exec=env MOZ_USE_XINPUT2=1 |Exec=|g" /usr/share/applications/firefox.desktop
+
