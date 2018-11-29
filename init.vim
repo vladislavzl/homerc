@@ -10,11 +10,12 @@
   map [ {
   map ] }
 
-  set completeopt=menuone,longest,preview,noinsert
+" выход из режима ввода в терминале по Esc
+  tnoremap <Esc> <C-\><C-n>
 
 " цветовая схема
 "  colorscheme gruvbox
-set background=dark
+  set background=dark
 
 " по нажатию non убираем номера строк и полоску сжатия текста (тормозит при
 " поиске)
@@ -44,9 +45,10 @@ set background=dark
 " плагин для создания файлов по шаблону
   " autocmd BufNewFile *.py source ~/.vim/ftplugin/python.vim
   " autocmd BufNewFile index.html source ~/.vim/ftplugin/html.vim
-  autocmd BufNewFile *.sh :0 put='#!/bin/sh'
+  autocmd BufNewFile *.sh :0 put='#!/bin/bash'
   autocmd BufNewFile *.py :0 put='#!/usr/bin/env python'
   autocmd BufNewFile *.py :1 put='# -*- coding: utf8 -*-'
+  autocmd BufNewFile *.pl :0 put='use strict;'
 
 " Сохранение позиции курсора
 augroup resCur
@@ -169,8 +171,16 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'scrooloose/nerdtree', {'on':'NERDTreeToggle'}
   "автодополнение 
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  " поддержка с++  не работает
+  " Plug 'zchee/deoplete-clang'
+  " " для поддержки headers в c++
+  " Plug 'Shougo/neoinclude.vim'
   "доставляет скобки.
   Plug 'jiangmiao/auto-pairs'
+  " синтаксис puppet
+  Plug 'puppetlabs/puppet-syntax-vim'
+  "калькулятор
+  Plug 'sk1418/HowMuch'
   "показывает классы функции,в общем еще не заценил, вызывается по Ctrl-b
   "(необходимо установть ctags sudo apt-get install ctags) в общем нах не нужен
   "говноплагин, отстой, нах не работает, но лучше походу не придумали.((
@@ -185,7 +195,19 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'mhartington/oceanic-next'
   " perl omni
   Plug 'c9s/perlomni.vim'
+  Plug 'majutsushi/tagbar'
+  Plug 'saltstack/salt-vim'
+  " Плагин для Wiki
+  Plug 'vimwiki/vimwiki' , { 'branch': 'dev' }
 call plug#end() 
+
+" Настройки для wiki
+  let g:vimwiki_folding='syntax'
+
+" TagList настройки majutsushi/tagbar
+  map <C-b> :TagbarToggle<CR>
+  let g:tagbar_sort = 0
+  let g:tagbar_autofocus = 0 " автофокус на Tagbar при открытии
 
 " показать дерево файлов
    map <C-o> :NERDTreeToggle<CR>
