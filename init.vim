@@ -12,6 +12,10 @@
 
 " выход из режима ввода в терминале по Esc
   tnoremap <Esc> <C-\><C-n>
+  " autocmd TermOpen * setlocal scrollback=100000 modifiable
+  autocmd TermOpen * setlocal scrollback=100000 
+  set scrollback=100000
+  set shell=/bin/bash
 
 " цветовая схема
 "  colorscheme gruvbox

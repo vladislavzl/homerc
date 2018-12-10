@@ -34,3 +34,20 @@ sudo sh -c "echo \"$USER ALL=(ALL) NOPASSWD:ALL\" > /etc/sudoers.d/90-cloudimg-u
 #
 # sudo sed -i "s|Exec=env MOZ_USE_XINPUT2=1 |Exec=|g" /usr/share/applications/firefox.desktop
 
+mkdir ~/.local/share/upterm
+wget https://github.com/railsware/upterm/releases/download/v0.4.3/upterm-0.4.3-x86_64-linux.AppImage -O ~/.local/share/upterm/
+
+.local/share/applications
+
+echo = [Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Name=Postman
+Icon=postman.png
+Path=/home/[your username]/Postman
+Exec=/home/[your username]/Postman/Postman
+StartupNotify=false
+StartupWMClass=Postman
+OnlyShowIn=Unity;GNOME;
+X-UnityGenerated=true
