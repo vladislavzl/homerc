@@ -15,7 +15,44 @@
   " autocmd TermOpen * setlocal scrollback=100000 modifiable
   autocmd TermOpen * setlocal scrollback=100000 
   set scrollback=100000
-  set shell=/bin/bash
+  " set shell=/bin/bash
+  " tnoremap <C-h> <C-\><C-n><C-w>h
+  " tnoremap <C-j> <C-\><C-n><C-w>j
+  " tnoremap <C-k> <C-\><C-n><C-w>k
+  " tnoremap <C-l> <C-\><C-n><C-w>l
+  " noremap <C-h> <C-w>h
+  " noremap <C-j> <C-w>j
+  " noremap <C-k> <C-w>k
+  " noremap <C-l> <C-w>l
+  " inoremap <C-h> <Esc><C-w>h
+  " inoremap <C-j> <Esc><C-w>j
+  " inoremap <C-k> <Esc><C-w>k
+  " inoremap <C-l> <Esc><C-w>l
+
+ " imap  <C-w>Left   <Esc><C-w>h
+ " imap  <C-w>Right  <Esc><C-w>l
+ " imap  <C-w>Up     <Esc><C-w>k
+ " imap  <C-w>Down   <Esc><C-w>j
+  " set nowrap
+  " set linebreak
+  set noeol
+
+  set sidescroll=6
+
+  " set
+ "  if &buftype ==# 'terminal'
+ "    echo 'The buffer is a terminal.'
+ "  endif
+ "  autocmd WinEnter *
+ " \ if &buftype ==# 'terminal' |
+ " \  startinsert |
+ " \ endif
+
+  " I like relative numbering when in normal mode.
+  " autocmd TermOpen * setlocal conceallevel=0 colorcolumn=0 relativenumber
+
+  " Prefer Neovim terminal insert mode to normal mode.
+  " autocmd BufEnter term://* startinsert
 
 " цветовая схема
 "  colorscheme gruvbox
@@ -39,9 +76,9 @@
   nnoremap <C-w>t :tabnew<CR>
   inoremap <C-w>t <Esc>:tabnew<CR>
   "переместиться в следущую панель
-  nnoremap <C-w><PageUp> :tabnext<CR>
+  nnoremap <C-w><PageUp> :tabprev<CR>
   "переместиться в предыдущую панель
-  nnoremap <C-w><PageDown> :tabprev<CR>
+  nnoremap <C-w><PageDown> :tabnext<CR>
 
 " выход двойное нажатие qq
   map qq :q<CR>
@@ -165,6 +202,15 @@ endfunction
   nmap <F2>  :w!<CR>
   imap <F2>  <Esc>:w!<CR>
   vmap <F2>  <Esc>:w!<CR>
+
+" терминал будет открывать текущую директорию
+function! s:openterm() abort
+  let currdir = getcwd()
+  let netrwdir = fnamemodify(b:netrw_curdir, ':t')
+  execute 'lcd '.netrwdir
+  execute 'terminal'
+  execute 'lcd '.currdir
+endfunction
 
 " управление плагинами
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
